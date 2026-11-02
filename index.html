@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pirozh's Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=Instrument+Sans:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  /* ===== Colors & fonts: change these to restyle the whole site ===== */
+  :root {
+    --bg: #eef2f7;
+    --ink: #101b36;
+    --muted: #4d5a76;
+    --line: #c9d3e3;
+    --accent: #2c46ff;
+    --mark: #ffe45c;
+    --display: "Bricolage Grotesque", "Trebuchet MS", sans-serif;
+    --body: "Instrument Sans", "Segoe UI", Arial, sans-serif;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #0e1424;
+      --ink: #eaf0ff;
+      --muted: #9aa8c7;
+      --line: #27324f;
+      --accent: #8da0ff;
+      --mark: #5b4d00;
+    }
+  }
+
+  * { box-sizing: border-box; margin: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font: 400 1.0625rem/1.65 var(--body);
+    -webkit-font-smoothing: antialiased;
+  }
+  a { color: inherit; }
+  :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 4px; }
+
+  .wrap { max-width: 56rem; margin: 0 auto; padding: 0 1.5rem; }
+
+  /* ===== Top bar ===== */
+  header { padding: 1.5rem 0; }
+  header .wrap { display: flex; justify-content: space-between; align-items: center; gap: 1rem; }
+  .logo { font: 800 1.15rem var(--display); text-decoration: none; }
+  nav { display: flex; gap: 1.5rem; }
+  nav a { text-decoration: none; color: var(--muted); font-weight: 600; }
+  nav a:hover { color: var(--accent); }
+
+  /* ===== Hero ===== */
+  .hero { padding: clamp(3rem, 12vw, 8rem) 0 clamp(3rem, 8vw, 5rem); }
+  .hero h1 {
+    font: 800 clamp(3.2rem, 14vw, 9rem)/0.92 var(--display);
+    letter-spacing: -0.04em;
+    animation: rise 0.9s cubic-bezier(.2,.7,.2,1) both;
+  }
+  .hero h1 span {
+    background: linear-gradient(transparent 62%, var(--mark) 62% 92%, transparent 92%);
+  }
+  .hero p {
+    max-width: 34rem;
+    margin-top: 1.75rem;
+    font-size: 1.25rem;
+    color: var(--muted);
+  }
+  .btns { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 2rem; }
+  .btn {
+    display: inline-block;
+    padding: 0.8rem 1.4rem;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+    border: 2px solid var(--ink);
+    transition: background 0.2s, color 0.2s;
+  }
+  .btn.main { background: var(--ink); color: var(--bg); }
+  .btn.main:hover { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .btn.ghost:hover { background: var(--ink); color: var(--bg); }
+  @keyframes rise { from { opacity: 0; transform: translateY(24px); } }
+
+  /* ===== Sections ===== */
+  section { padding: clamp(2.5rem, 7vw, 4.5rem) 0; border-top: 1px solid var(--line); }
+  h2 { font: 800 clamp(1.8rem, 5vw, 2.6rem)/1.1 var(--display); letter-spacing: -0.02em; margin-bottom: 1.5rem; }
+
+  /* ===== Projects (click a row to open it) ===== */
+  details { border-bottom: 1px solid var(--line); }
+  summary {
+    list-style: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 1rem;
+    padding: 1.25rem 0;
+    font: 500 clamp(1.3rem, 3.5vw, 1.8rem)/1.2 var(--display);
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary small { font: 400 0.95rem var(--body); color: var(--muted); white-space: nowrap; }
+  summary::after {
+    content: "+";
+    font-size: 1.6rem;
+    color: var(--accent);
+    transition: transform 0.25s;
+  }
+  details[open] summary::after { transform: rotate(45deg); }
+  summary:hover { color: var(--accent); }
+  .detail { padding: 0 0 1.5rem; max-width: 40rem; color: var(--muted); }
+  .detail a { color: var(--accent); font-weight: 600; }
+  .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.9rem; }
+  .tags li {
+    list-style: none;
+    padding: 0.15rem 0.7rem;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 0.9rem;
+  }
+
+  /* ===== About ===== */
+  .about { display: grid; gap: 2rem; grid-template-columns: 1fr; }
+  .about p + p { margin-top: 1rem; }
+  .skills { display: flex; flex-wrap: wrap; gap: 0.5rem; padding: 0; }
+  .skills li { list-style: none; background: var(--mark); color: #101b36; padding: 0.25rem 0.8rem; border-radius: 6px; font-weight: 600; }
+  @media (prefers-color-scheme: dark) { .skills li { color: #ffe45c; } }
+  @media (min-width: 48rem) { .about { grid-template-columns: 3fr 2fr; gap: 4rem; } }
+
+  /* ===== Contact ===== */
+  .contact a.big {
+    display: inline-block;
+    font: 800 clamp(1.6rem, 6vw, 3.2rem)/1.1 var(--display);
+    letter-spacing: -0.02em;
+    text-decoration-color: var(--accent);
+    text-decoration-thickness: 4px;
+    text-underline-offset: 6px;
+    word-break: break-all;
+  }
+  .contact a.big:hover { color: var(--accent); }
+  .links { display: flex; flex-wrap: wrap; gap: 1.5rem; margin-top: 1.5rem; }
+  .links a { font-weight: 600; color: var(--muted); }
+  .links a:hover { color: var(--accent); }
+
+  footer { padding: 2rem 0 3rem; color: var(--muted); font-size: 0.95rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="#top">Pirozhkaa</a>
+    <nav aria-label="Main">
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+  <!-- ===== HERO: replace the name and the intro sentence ===== -->
+  <div class="hero">
+    <div class="wrap">
+      <h1>Hi, I'm <span>Pirozhkaa.</span></h1>
+      <p>I design and build simple, useful things for the web. Right now I'm looking for projects where I can learn and ship.</p>
+      <div class="btns">
+        <a class="btn main" href="#work">See my work</a>
+        <a class="btn ghost" href="#contact">Get in touch</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== WORK: copy a <details> block for each project ===== -->
+  <section id="work">
+    <div class="wrap">
+      <h2>Selected work</h2>
+
+      <details open>
+        <summary>Project One <small>Web app, 2026</small></summary>
+        <div class="detail">
+          <p>Describe what it does, who it is for, and what you did. Two or three sentences is enough.</p>
+          <ul class="tags"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul>
+          <p style="margin-top:.9rem"><a href="#">View project</a></p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Project Two <small>Design, 2026</small></summary>
+        <div class="detail">
+          <p>Describe the problem you solved and what the result was.</p>
+          <ul class="tags"><li>Figma</li><li>Branding</li></ul>
+          <p style="margin-top:.9rem"><a href="#">View project</a></p>
+        </div>
+      </details>
+
+      <details>
+        <summary>Project Three <small>School project, 2025</small></summary>
+        <div class="detail">
+          <p>Describe what you made, who you worked with, and what you learned.</p>
+          <ul class="tags"><li>Teamwork</li><li>Python</li></ul>
+          <p style="margin-top:.9rem"><a href="#">View project</a></p>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <!-- ===== ABOUT ===== -->
+  <section id="about">
+    <div class="wrap">
+      <h2>About me</h2>
+      <div class="about">
+        <div>
+          <p>Write a short paragraph about who you are and what you care about. Keep it friendly and specific.</p>
+          <p>Add a second paragraph about what you are learning now, or what you want to build next.</p>
+        </div>
+        <div>
+          <p style="margin-bottom:.75rem;font-weight:600">Things I work with</p>
+          <ul class="skills">
+            <li>HTML &amp; CSS</li>
+            <li>JavaScript</li>
+            <li>UI design</li>
+            <li>Writing</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT: replace the email and links ===== -->
+  <section id="contact">
+    <div class="wrap contact">
+      <h2>Let's work together</h2>
+      <a class="big" href="mailto:you@example.com">you@example.com</a>
+      <div class="links">
+        <a href="#">GitHub</a>
+        <a href="#">LinkedIn</a>
+        <a href="#">Instagram</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">&copy; <span id="year">2026</span> Pirozhkaa</div>
+</footer>
+
+<script>
+  document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
